@@ -1,10 +1,16 @@
 package com.aldeir.cobranca.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.aldeir.cobranca.modelo.StatusTitulo;
 import com.aldeir.cobranca.modelo.Titulo;
 import com.aldeir.cobranca.repository.Titulos;
 
@@ -12,19 +18,35 @@ import com.aldeir.cobranca.repository.Titulos;
 @RequestMapping("/titulos")
 public class TituloController {
 	
-	  @Autowired  //injeta a implementação do titulo
+	  @Autowired  //injeta a implementação do titulos da interfaces
 	 private Titulos titulos;
 	 
 	@RequestMapping("/novo")
-	public String novo() {
-		return "CadastroTitulo.xhtml";
+	public ModelAndView novo() {
+		ModelAndView mv = new ModelAndView("CadastroTitulo.xhtml");
+	//	mv.addObject("status", StatusTitulo.values()); pode ser assim para mostra o no th:each na tag select ou na linha 40
+		return mv;
+	}
+	@RequestMapping
+	public String pesquisar() {
+		return "PesquisaTitulo.xhtml";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)//aqui 
-	public String salvar(Titulo titulo) {//estar vindo via post e converte em obgeto para ser salvo no banco
+	public ModelAndView salvar(Titulo titulo) {//estar vindo via post e converte em obgeto para ser salvo no banco
 	
 		titulos.save(titulo);
-		return "CadastroTitulo.xhtml";
+		ModelAndView mv = new ModelAndView("CadastroTitulo.xhtml");
+		mv.addObject("mensagem","Titulo salvo com sucesso!");
+		return mv;
 	}
+	//             atributo  para ser usado no th:each na tag select
+	@ModelAttribute("todosStatusTitulo")
+	public List<StatusTitulo> todosStatusTitulo(){
+		return Arrays.asList(StatusTitulo.values());
+	}
+	
+	
+	
 
 }
