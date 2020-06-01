@@ -54,7 +54,13 @@
 			    th:classappend = "${titulo.pendente ? 'label-danger' :'label-success'}"></span>
 			    <!-- de acordo com o status ele mostra muda a cor -->
 			  </td>
-			  <td class ="center">
+			  <td class ="tex-center"><!-- O @ serve para monta link  codigo é uma variavel o primeiro,@ uma url dimanica -->
+			    <a class = "btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}">
+			     <span class="glyphicon glyphicon-pencil"></span>
+			    </a>
+			    <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal">
+			    <span class="glyphicon glyphicon-remove"></span>
+			    </a>
 			  </td>
 			</tr>
 				<tr>
@@ -62,6 +68,27 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	<div class="mdal fade" id="confirmacaoExclusaoModal" tabindex="-1">
+	  <div class="modal-dialog">
+	<form action="/titulos" method="post">
+	<input type="hidden" name="_method" value="dele"/>
+	
+	    <div class="modal-content">
+	     <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal"></button>
+	       <h4 class="moal-title">voce tem certeza?</h4>
+	    </div>
+	    
+	    <div class="modal-bady">
+	    <span> Tem ceteza que deseja apagar o titulo?</span>
+	    </div>
+	    <div class="modal-footer">
+	     <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+	      <button type="submit" class="btn btn-primary">Excluir</button>
+	    </div>
+	  </div>
+	  </form>
 	</div>
 </div>
  <script src="/js/bootstrap.min.js"></script>

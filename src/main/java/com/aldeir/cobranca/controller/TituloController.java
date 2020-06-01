@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,15 +41,20 @@ public class TituloController {
 		mv.addObject("titulos", todosTitulos);// retorna um objeto para a viw
 		return mv;
 	}
-
+	
+	@RequestMapping("{codigo}")
+    public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
+		//Titulo titulo = titulos.getOne(codigo);pode ser assim com o parametro como id ou pode ser com o paramentro do tipo do objeto 
+		
+		ModelAndView mv = new ModelAndView("CadastroTitulo.xhtml");
+		mv.addObject(titulo);
+		return mv;
+    }
+	
+	
 	@RequestMapping(method = RequestMethod.POST) // aqui
-	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {// estar vindo via
-																									// post e converte
-																									// em obgeto para
-																									// ser salvo no
-																									// banco
+	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {// estar vindo via post e converte em obgeto para ser salvo no banco 																				// banco
 		// aqui encima pede para validar antes de enviar para o banco
-
 		if (errors.hasErrors()) {
 			return "CadastroTitulo.xhtml";// si tiver algum erro retorna o nome na viu
 		}
