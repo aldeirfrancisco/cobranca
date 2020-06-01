@@ -3,11 +3,14 @@ package com.aldeir.cobranca.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,14 +44,9 @@ public class TituloController {
 		return mv;
 	}
 
-	@RequestMapping(method = RequestMethod.POST) // aqui
-	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {// estar vindo via
-																									// post e converte
-																									// em obgeto para
-																									// ser salvo no
-																									// banco
+	@RequestMapping(method = RequestMethod.POST) // aqui estar vindo via post e converte em obgeto para ser salvo no banco
+	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {																																												
 		// aqui encima pede para validar antes de enviar para o banco
-
 		if (errors.hasErrors()) {
 			return "CadastroTitulo.xhtml";// si tiver algum erro retorna o nome na viu
 		}
@@ -57,6 +55,11 @@ public class TituloController {
 		attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso!");
 
 		return "redirect:/titulos/novo";// retorn uma url 
+	}
+	@RequestMapping("{codigo}")//variavel do id que passa para o parametro do metodo
+	public ModelAndView edicao(@PathVariable Long codigo) {
+		ModelAndView mv = new ModelAndView();
+		return mv;
 	}
 
 	// atributo para ser usado no th:each na tag select
