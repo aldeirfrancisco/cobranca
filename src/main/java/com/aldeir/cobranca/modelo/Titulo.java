@@ -1,6 +1,7 @@
 package com.aldeir.cobranca.modelo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,20 +20,19 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
-import java.util.Date;
-
 @Entity
 public class Titulo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
 	
-	@NotEmpty(message = "Descrição é obrigatótia")
+	
+	@org.hibernate.validator.constraints.NotEmpty(message = "Descrição é obrigatótia")
 	@Size(max = 60, message = "A descrição não pode ser mas de 60 caracteres")
 	private String descricao;
 	
 	@NotNull(message = "Data de vencimento é obrigatótia")
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
@@ -41,8 +41,10 @@ public class Titulo {
 	@DecimalMax(value = "9999999.99", message = "O valor não pode ser maior que 9.999.999,99")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
+	
 	@Enumerated(EnumType.STRING)
 	private StatusTitulo status;
+	
 	public long getCodigo() {
 		return codigo;
 	}
