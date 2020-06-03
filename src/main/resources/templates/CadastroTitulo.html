@@ -1,64 +1,72 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="LayoutPadrao">
 
 
 <head>
 
-			<meta charset="UTF-8"/>
-			<title>Cadastro de titulo</title>
-			
+<meta charset="UTF-8" />
+<title>Cadastro de titulo</title>
+
 </head>
 <section layout:fragment="conteudo">
-	<form class="form-horizontal" method="post" action="/titulos" th:object="${titulo}">
+	<form class="form-horizontal" method="post" action="/titulos"
+		th:object="${titulo}">
 		<!--     aqui verifica si nao ta vasio mostra a mesagem -->
 		<div class="alert alert-success"
 			th:if="${!#strings.isEmpty(mensagem)}">
 			<span th:text="${mensagem}"></span>
 		</div>
-		<div class = "alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-		  <div th:each="detailedError : ${#fields.detailedErrors()}"><!-- mesagen de erro em campo nulo -->
-		   <span th:text="${detailedError.message}"></span>
-		  </div>
+		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+			<div th:each="detailedError : ${#fields.detailedErrors()}">
+				<!-- mesagen de erro em campo nulo -->
+				<span th:text="${detailedError.message}"></span>
+			</div>
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class = "clearfix">
-				<h1 class="panel-title aw-titulo-panel">Novo titulo</h1>
-				<a class = "btn btn-link aw-link-panel" href = "/titulos">Voltar para pesquisa</a>
+				<div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel">Novo titulo</h1>
+					<a class="btn btn-link aw-link-panel" href="/titulos">Voltar
+						para pesquisa</a>
 				</div>
 			</div>
 
 			<div class="panel-body">
-			<input type="hidden" th:field="*{codigo}"/>
-				<div class="form-group"  th:classappend ="${#fields.hasErrors('descricao')} ? 'has-error'" >
+				<input type="hidden" th:field="*{codigo}" />
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('descricao')} ? 'has-error'">
 					<label for="descricao" class="col-sm-2 control-label">Descrição</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="descricao"
-							th:field ="*{descricao}" />
+							th:field="*{descricao}" />
 					</div>
 				</div>
-				<div class="form-group"  th:classappend ="${#fields.hasErrors('dataVencimento')} ? 'has-error'" >
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('dataVencimento')} ? 'has-error'">
 					<label for="datavencimento" class="col-sm-2 control-label">Data
 						de vencimento</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="datavencimento"
-		th:field ="*{dataVencimento}" /><!-- esse th:field mantem o valor no formulario  -->
-				
+							th:field="*{dataVencimento}" />
+						<!-- esse th:field mantem o valor no formulario  -->
+
 					</div>
 				</div>
-				<div class="form-group" th:classappend ="${#fields.hasErrors('valor')} ? 'has-error'" >
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('valor')} ? 'has-error'">
 					<label for="valor" class="col-sm-2 control-label">Valor</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="valor" th:field ="*{valor}" />
+						<input type="text" class="form-control" id="valor"
+							th:field="*{valor}" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="status" class="col-sm-2 control-label">Status</label>
 					<div class="col-sm-2">
-						<select class="form-control" th:field ="*{status}">
+						<select class="form-control" th:field="*{status}">
 							<!-- th:each funciona como for each              esse status e o do each    aqui ta pegando os atributos do enum -->
 							<option th:each="status : ${todosStatusTitulo}"
 								th:value="${status}" th:text="${status.descricao}"></option>
@@ -74,5 +82,5 @@
 			</div>
 		</div>
 	</form>
-    </section>
+</section>
 </html>
