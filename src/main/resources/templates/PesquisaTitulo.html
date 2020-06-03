@@ -1,32 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-	<!--  xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
-	 layout:decorator = "LayoutPadrao.xhtml"-->
+	xmlns:th="http://www.thymeleaf.org"
+	 xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
+	 layout:decorator = "LayoutPadrao">
 
 <head>
 
 	<meta charset="UTF-8"/>
-		<title>Pesquisar de títulos</title>
-       <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-			<link rel="stylesheet" type="text/css" href="/css/style.css"/>
-
+		<title>Pesquisar de título</title>
+		
+      
 </head>
-<body>
-<nav class="navbar navbar-inverse navbar-static-top">
-			      <div class="container-fluid">
-			      <div class="navbar-header">
-			      <a class="navbar-brand" href="#">
-			      Aldeir<br/>SoftWare
-			      </a>
-			    </div>
-		  </div>
-		</nav>
-<body>
+
+ <section layout:fragment="conteudo" >
+ 
 <div class="panel panel-default">
 	<div class="panel-heading">
 	  <div class = "clearfix">
-		<h1 class="panel-title aw-titulo-panel">Pesquisa de títulos</h1>
+		<h1 class="panel-title aw-titulo-panel">Pesquisa de título</h1>
 		<a class = "btn btn-link aw-link-panel" href = "/titulos/novo"> Novo titulo</a>
 		</div>
 	</div>
@@ -58,9 +49,10 @@
 			    <a class = "btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}">
 			     <span class="glyphicon glyphicon-pencil"></span>
 			    </a>
-			    <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal">
+			   <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal">
 			    <span class="glyphicon glyphicon-remove"></span>
 			    </a>
+			    
 			  </td>
 			</tr>
 				<tr>
@@ -69,15 +61,15 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="mdal fade" id="confirmacaoExclusaoModal" tabindex="-1">
+	<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1" data-keyboord ="false" data-barckdrop = "static">
 	  <div class="modal-dialog">
+	  
 	<form action="/titulos" method="post">
-	<input type="hidden" name="_method" value="dele"/>
+	<input type="hidden" name="_method" value="DELETE"/>
 	
 	    <div class="modal-content">
 	     <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal"></button>
-	       <h4 class="moal-title">voce tem certeza?</h4>
+	       <h4 class="modal-title">voce tem certeza?</h4>
 	    </div>
 	    
 	    <div class="modal-bady">
@@ -91,7 +83,6 @@
 	  </form>
 	</div>
 </div>
- <script src="/js/bootstrap.min.js"></script>
-           <script src="/js/Jquery-3.5.1.min.js"></script>
-	</body>
+ </div>
+ </section>
 </html>

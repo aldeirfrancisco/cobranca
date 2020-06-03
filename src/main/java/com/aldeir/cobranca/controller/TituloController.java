@@ -27,7 +27,7 @@ public class TituloController {
 
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
-		ModelAndView mv = new ModelAndView("CadastroTitulo.xhtml");
+		ModelAndView mv = new ModelAndView("CadastroTitulo.html");
 		// mv.addObject("status", StatusTitulo.values()); pode ser assim para mostra o
 		// no th:each na tag select ou na linha 40
 		mv.addObject(new Titulo());
@@ -37,7 +37,7 @@ public class TituloController {
 	@RequestMapping
 	public ModelAndView pesquisar() {
 		List<Titulo> todosTitulos = titulos.findAll();// faz uma busca em todos os titulos no banco
-		ModelAndView mv = new ModelAndView("PesquisaTitulo.xhtml");
+		ModelAndView mv = new ModelAndView("PesquisaTitulo.html");
 		mv.addObject("titulos", todosTitulos);// retorna um objeto para a viw
 		return mv;
 	}
@@ -46,7 +46,7 @@ public class TituloController {
     public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
 		//Titulo titulo = titulos.getOne(codigo);pode ser assim com o parametro como id ou pode ser com o paramentro do tipo do objeto 
 		
-		ModelAndView mv = new ModelAndView("CadastroTitulo.xhtml");
+		ModelAndView mv = new ModelAndView("CadastroTitulo.html");
 		mv.addObject(titulo);
 		return mv;
     }
@@ -56,7 +56,7 @@ public class TituloController {
 	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {// estar vindo via post e converte em obgeto para ser salvo no banco 																				// banco
 		// aqui encima pede para validar antes de enviar para o banco
 		if (errors.hasErrors()) {
-			return "CadastroTitulo.xhtml";// si tiver algum erro retorna o nome na viu
+			return "CadastroTitulo.html";// si tiver algum erro retorna o nome na viu
 		}
 
 		titulos.save(titulo);
