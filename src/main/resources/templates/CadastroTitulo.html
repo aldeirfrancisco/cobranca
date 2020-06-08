@@ -14,19 +14,12 @@
 <section layout:fragment="conteudo">
 	<form class="form-horizontal" method="post" action="/titulos"
 		th:object="${titulo}">
-		<!--     aqui verifica si nao ta vasio mostra a mesagem -->
-		<div class="alert alert-success"
-			th:if="${!#strings.isEmpty(mensagem)}">
-			<span th:text="${mensagem}"></span>
-		</div>
-		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-			<div th:each="detailedError : ${#fields.detailedErrors()}">
-				<!-- mesagen de erro em campo nulo -->
-				<span th:text="${detailedError.message}"></span>
-			</div>
-		</div>
+		<div layout:include="MensagemGeral"></div>
+    	<div layout:include="MensagemErro"></div>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
+			
 				<div class="clearfix">
 					<h1 class="panel-title aw-titulo-panel">Novo titulo</h1>
 					<a class="btn btn-link aw-link-panel" href="/titulos">Voltar
