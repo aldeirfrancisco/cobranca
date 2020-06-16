@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aldeir.cobranca.modelo.StatusTitulo;
 import com.aldeir.cobranca.modelo.Titulo;
 import com.aldeir.cobranca.repository.Titulos;
+import com.aldeir.cobranca.service.CadastroTituloService;
 
 @Controller
 @RequestMapping("/titulos")
@@ -25,7 +26,9 @@ public class TituloController {
 
 	@Autowired // injeta a implementação do titulos da interfaces
 	private Titulos titulos;
-
+    
+	@Autowired
+    private CadastroTituloService  cadastroTituloService;  
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
 		ModelAndView mv = new ModelAndView("CadastroTitulo.html");
@@ -53,8 +56,9 @@ public class TituloController {
     }
 	@RequestMapping(value="{codigo}", method = RequestMethod.DELETE)
 	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
-		titulos.deleteById(codigo);
-
+		
+		 cadastroTituloService.excluir(codigo);
+		 
 		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
 		return "redirect:/titulos";
 	}
@@ -64,17 +68,17 @@ public class TituloController {
 	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {// estar vindo via post e converte em obgeto para ser salvo no banco 																				// banco
 		// aqui encima pede para validar antes de enviar para o banco
 		if (errors.hasErrors()) {
-			return "CadastroTitulo.html";// si tiver algum erro retorna o nome na viu
-		}
-  try {
-		titulos.save(titulo);
-		attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso!");
-
-		return "redirect:/titulos/novo";// retorn uma url 
-  }catch (DataIntegrityViolationException e) {
-	errors.rejectValue("dataVencimento", null,"Formato data invalido");
-	return "CadastroTitulo.html";
-}
+						return "CadastroTitulo.html";// si tiver algum erro retorna o nome na viu
+					}
+			  try {
+				  cadastroTituloService.salvar(titulo);
+					attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso!");
+			
+					return "redirect:/titulos/novo";// retorn uma url 
+			  }catch (DataIntegrityViolationException e) {
+				errors.rejectValue("dataVencimento", null,e.getMessage());
+				return "CadastroTitulo.html";
+			}
 	}
   
 
