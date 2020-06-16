@@ -28,7 +28,8 @@ public class TituloController {
 	private Titulos titulos;
     
 	@Autowired
-    private CadastroTituloService  cadastroTituloService;  
+    private CadastroTituloService  cadastroTituloService;
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
 		ModelAndView mv = new ModelAndView("CadastroTitulo.html");
@@ -80,7 +81,7 @@ public class TituloController {
 				return "CadastroTitulo.html";
 			}
 	}
-  
+   
 
 	// atributo para ser usado no th:each na tag select
 	@ModelAttribute("todosStatusTitulo")
