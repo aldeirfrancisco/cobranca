@@ -10,8 +10,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -48,7 +50,8 @@ public class TituloController {
 	}
 	
 	@RequestMapping("{codigo}")
-    public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
+	public ModelAndView edicao(@PathVariable("codigo") Long codigoTitulo) {
+		Titulo titulo = titulos.getOne(codigoTitulo);
 		//Titulo titulo = titulos.getOne(codigo);pode ser assim com o parametro como id ou pode ser com o paramentro do tipo do objeto 
 		
 		ModelAndView mv = new ModelAndView("CadastroTitulo.html");
@@ -82,6 +85,11 @@ public class TituloController {
 			}
 	}
    
+	@RequestMapping(value = "/{codigo}/receber", method = RequestMethod.PUT)
+	public @ResponseBody String receber(@PathVariable Long codigo) {
+		return cadastroTituloService.receber(codigo);
+		
+	}
 
 	// atributo para ser usado no th:each na tag select
 	@ModelAttribute("todosStatusTitulo")

@@ -13,7 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,8 +26,8 @@ public class Titulo {
 	private long codigo;
 	
 	
-	@org.hibernate.validator.constraints.NotEmpty(message = "Descrição é obrigatótia")
-	@Size(max = 60, message = "A descrição não pode ser mas de 60 caracteres")
+	@org.hibernate.validator.constraints.NotEmpty(message = "Descrição é obrigatória")
+	@Size(max = 60, message = "A descrição não pode conter mais de 60 caracteres")
 	private String descricao;
 	
 	@NotNull(message = "Data de vencimento é obrigatótia")
@@ -36,9 +35,9 @@ public class Titulo {
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
-	@NotNull(message = "O valor é obrigatótia")
-	@DecimalMin(value = "0.01",message = "Valor não pode ser menor que 0,01 ")
-	@DecimalMax(value = "9999999.99", message = "O valor não pode ser maior que 9.999.999,99")
+	@NotNull(message = "Valor é obrigatório")
+	@DecimalMin(value = "0.01", message = "Valor não pode ser menor que 0,01")
+	@DecimalMax(value = "9999999.99", message = "Valor não pode ser maior que 9.999.999,99")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 	
