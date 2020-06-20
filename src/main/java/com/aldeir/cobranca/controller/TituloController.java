@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,14 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aldeir.cobranca.modelo.StatusTitulo;
 import com.aldeir.cobranca.modelo.Titulo;
 import com.aldeir.cobranca.repository.Titulos;
+import com.aldeir.cobranca.repository.filter.TituloFilter;
 import com.aldeir.cobranca.service.CadastroTituloService;
 
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
 
-	@Autowired // injeta a implementação do titulos da interfaces
-	private Titulos titulos;
     
 	@Autowired
     private CadastroTituloService  cadastroTituloService;
@@ -42,16 +42,17 @@ public class TituloController {
 	}
 
 	@RequestMapping
-	public ModelAndView pesquisar() {
-		List<Titulo> todosTitulos = titulos.findAll();// faz uma busca em todos os titulos no banco
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
+			
+		List<Titulo> todosTitulos = cadastroTituloService.filtrar(filtro); // faz uma busca em todos os titulos no banco
+	
 		ModelAndView mv = new ModelAndView("PesquisaTitulo.html");
 		mv.addObject("titulos", todosTitulos);// retorna um objeto para a viw
 		return mv;
 	}
 	
 	@RequestMapping("{codigo}")
-	public ModelAndView edicao(@PathVariable("codigo") Long codigoTitulo) {
-		Titulo titulo = titulos.getOne(codigoTitulo);
+	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
 		//Titulo titulo = titulos.getOne(codigo);pode ser assim com o parametro como id ou pode ser com o paramentro do tipo do objeto 
 		
 		ModelAndView mv = new ModelAndView("CadastroTitulo.html");
