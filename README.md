@@ -1,6 +1,6 @@
 # cobranca
 ## Workshop algaWorks
-### Pagina que Pesquisar Titulos, Excluir, Editar e muda o Status.
+### Pagina que Pesquisar Titulos, Excluir, Editar e mudar o Status.
 
 ![sistema1 (3)](https://user-images.githubusercontent.com/49292826/85817780-51218880-b745-11ea-9c03-beb13a3f5c12.jpeg)
 ### Cadastro de titulos
